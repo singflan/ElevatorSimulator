@@ -31,6 +31,8 @@
 @property NSInteger destinationFloor; // Which floor are we headed to
 @property NSInteger direction; // Is elevator on the way up or down
 @property BOOL *arrowButtonLit;
+@property BOOL *numberButtonLit;
+@property NSArray *floors;
 
 @end
 
@@ -97,8 +99,10 @@
     _floor2UpButton.backgroundColor = [UIColor orangeColor];
     _floor1UpButton.backgroundColor = [UIColor orangeColor];
 
-
+    _floors = @[@1,@2,@3,@4,@5];
     _arrowButtonLit = false;
+    _numberButtonLit = false;
+    
 
     
     
@@ -106,44 +110,71 @@
 
 
 
--(IBAction)upButtonPressed:(id)sender {
-    
-}
-
--(IBAction)downButtonPressed:(id)sender {
-    
-}
-
--(IBAction)numberButtonPressed:(id)sender {
-    int buttonNumber;
-    switch (sender currentAttributedTitle) {
-        case 1:
-            <#statements#>
-            break;
-        case 2:
-            
-            break;
-        case 3:
-            
-            break;
-            
-        case 4:
-            
-            break;
-            
-        default:
-            
-            break;
-    }
-    if (sender currentAttributedTitle = "1") {
+-(IBAction)upButtonPressed:(UIButton *)sender {
+    if (!_arrowButtonLit) {
+        _arrowButtonLit = true;
+        
         
     }
+}
+
+-(IBAction)downButtonPressed:(UIButton *)sender {
+    if (!_arrowButtonLit) {
+       _arrowButtonLit = true;
     
-    if (self.arrowButtonLit = true) { // if the outside light is on
-        [self advanceFloor]; //do something like this
+    
     }
 }
 
+-(IBAction)numberButtonPressed:(UIButton *)sender {
+    if (self.arrowButtonLit = true) {
+        int buttonNumber;
+        if ([sender.currentAttributedTitle isEqual: @"1"]) {
+            buttonNumber = 1;
+        }
+        else if ([sender.currentAttributedTitle isEqual: @"2"]){
+            buttonNumber = 2;
+        }
+        else if ([sender.currentAttributedTitle isEqual: @"3"]){
+            buttonNumber = 3;
+        }
+        else if ([sender.currentAttributedTitle isEqual: @"4"]) {
+            buttonNumber = 4;
+        }
+        else {
+            buttonNumber = 5;
+        }
+    
+        // if the outside light is on
+        //[self advanceFloor]; //do something like this
+        
+
+    }
+    
+    
+}
+
+-(void)changeNumberButtonColor:(int)buttonNumber {
+    if (buttonNumber == 1) {
+        if (self.numberButtonLit) {
+            self.floor1Button.backgroundColor = [UIColor blueColor];
+        } else {
+            self.floor1Button.backgroundColor = [UIColor orangeColor];
+        }
+        
+    }
+    else if (buttonNumber == 2) {
+        if (self.numberButtonLit) {
+            self.floor1Button.backgroundColor = [UIColor blueColor];
+        } else {
+            self.floor1Button.backgroundColor = [UIColor orangeColor];
+        }
+    }
+    else if (buttonNumber == 3) {
+        self.floor3Button.backgroundColor = [UIColor blueColor];
+    }
+
+}
 
 
 - (void)didReceiveMemoryWarning {
