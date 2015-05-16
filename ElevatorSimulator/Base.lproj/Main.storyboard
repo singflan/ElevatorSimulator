@@ -82,19 +82,10 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duc-1W-i6m">
-                                        <rect key="frame" x="124" y="62" width="46" height="30"/>
-                                        <state key="normal" title="Button" image="Down-50.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VYF-6j-oE4"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekm-6G-Zkk">
                                         <rect key="frame" x="70" y="91" width="46" height="30"/>
                                         <color key="tintColor" red="1" green="0.99267637559999999" blue="0.68635294359999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Button" image="Up-50.png">
+                                        <state key="normal" title="Floor4Up" image="Up-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -103,7 +94,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOq-ug-091">
                                         <rect key="frame" x="70" y="120" width="46" height="30"/>
-                                        <state key="normal" title="Button" image="Up-50.png">
+                                        <state key="normal" title="Floor3Up" image="Up-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -112,7 +103,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jbJ-WY-2yS">
                                         <rect key="frame" x="70" y="149" width="46" height="30"/>
-                                        <state key="normal" title="Button" image="Up-50.png">
+                                        <state key="normal" title="Floor2Up" image="Up-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -121,7 +112,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cvb-Qw-qJs">
                                         <rect key="frame" x="70" y="178" width="46" height="30"/>
-                                        <state key="normal" title="Button" image="Up-50.png">
+                                        <state key="normal" title="Floor1Up" image="Up-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -130,7 +121,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KDt-sE-hiH">
                                         <rect key="frame" x="124" y="120" width="44" height="30"/>
-                                        <state key="normal" title="Button" image="Down-50.png">
+                                        <state key="normal" title="Floor3Down" image="Down-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -139,7 +130,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79V-U8-27c">
                                         <rect key="frame" x="124" y="149" width="44" height="30"/>
-                                        <state key="normal" title="Button" image="Down-50.png">
+                                        <state key="normal" title="Floor2Down" image="Down-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -148,11 +139,20 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVa-GJ-50g">
                                         <rect key="frame" x="124" y="91" width="46" height="30"/>
-                                        <state key="normal" title="Button" image="Down-50.png">
+                                        <state key="normal" title="Floor4Down" image="Down-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8n0-DH-Aa9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duc-1W-i6m">
+                                        <rect key="frame" x="124" y="62" width="46" height="30"/>
+                                        <state key="normal" title="Floor5Down" image="Down-50.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VYF-6j-oE4"/>
                                         </connections>
                                     </button>
                                 </subviews>

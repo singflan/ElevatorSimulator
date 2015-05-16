@@ -27,12 +27,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *floor1UpButton;
 @property UIImage *upArrow;
 @property UIImage *downArrow;
-@property NSInteger floorNumber; // Which floor is the elevator on now
+@property NSInteger currentFloorNumber; // Which floor is the elevator on now
 @property NSInteger destinationFloor; // Which floor are we headed to
 @property NSInteger direction; // Is elevator on the way up or down
 @property BOOL *arrowButtonLit;
 @property BOOL *numberButtonLit;
 @property NSArray *floors;
+@property UIColor *numberButtonColor;
+@property NSTimer *betweenFloorsTimer;
 
 @end
 
@@ -41,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    _floorNumber = 0;
+    _currentFloorNumber = 0;
     // Formatting the look of the buttons
     // Inside-elevator buttons
     _floor1Button.backgroundColor = [UIColor cyanColor];
@@ -100,21 +102,37 @@
     _floor1UpButton.backgroundColor = [UIColor orangeColor];
 
     _floors = @[@1,@2,@3,@4,@5];
-    _arrowButtonLit = false;
-    _numberButtonLit = false;
+    _arrowButtonLit = NO;
+    _numberButtonLit = NO;
+    
 }
 
 -(IBAction)upButtonPressed:(UIButton *)sender {
     if (!_arrowButtonLit) {
         _arrowButtonLit = YES;
+        if ([sender.currentAttributedTitle isEqual:@"Floor5Down"]) {
+            self.floor5DownButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentAttributedTitle isEqual:@"Floor4Down"]) {
+            self.floor4DownButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentAttributedTitle isEqual:@"Floor3Down"]) {
+            self.floor3DownButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentAttributedTitle isEqual:@"Floor2Down"]) {
+            self.floor2DownButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentAttributedTitle isEqual:@"Floor4Up"]) {
+            self.floor4UpButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentAttributedTitle isEqual:@"Floor3Up"]) {
+            self.floor3UpButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentAttributedTitle isEqual:@"Floor2Up"]) {
+            self.floor2UpButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentAttributedTitle isEqual:@"Floor1Up"]) {
+            self.floor1UpButton.backgroundColor = [UIColor redColor];
+        }
     }
 }
 
 -(IBAction)downButtonPressed:(UIButton *)sender {
     if (!_arrowButtonLit) {
        _arrowButtonLit = YES;
-    
-    
     }
 }
 
@@ -136,61 +154,51 @@
         else {
             buttonNumber = 5;
         }
+       
         [self changeNumberButtonColor:buttonNumber]; //Method to change the button color
-        // if the outside light is on
-        //[self advanceFloor]; //do something like this
+       
+     //  [self.betweenFloorsTimer ]
+//        if (<#condition#>) {
+//            <#statements#>
+//        }
+//        for (i = buttonNumber) {
+//            
+//        }
         
-
+//        _betweenFloorsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0
+//                                                               target: self
+//                                                             selector:@selector(onTick:)
+//                                                             userInfo: nil
+//                                                              repeats:NO];
+        self.currentFloorNumber = buttonNumber;
+        NSString *floorNumber =[NSString stringWithFormat:@"%i", buttonNumber];
+        self.outsideFloorIndicator.text = floorNumber;
+        self.insideFloorIndicator.text = floorNumber;
+            
+        self.arrowButtonLit = NO;
     }
-    
     
 }
 
 -(void)changeNumberButtonColor:(int)buttonNumber {
-    if (buttonNumber == 1) {
-        if (!self.numberButtonLit) {
-            self.floor1Button.backgroundColor = [UIColor blueColor];
-            self.numberButtonLit = true;
+    
+    if (!self.numberButtonLit) {
+        self.numberButtonLit = YES;
+        self.numberButtonColor = [UIColor blueColor];
+    
+        if (buttonNumber == 1) {
+            self.floor1Button.backgroundColor = _numberButtonColor;
+        } else if (buttonNumber == 2) {
+            self.floor2Button.backgroundColor = _numberButtonColor;
+        } else if (buttonNumber == 3) {
+            self.floor3Button.backgroundColor = _numberButtonColor;
+        } else if (buttonNumber == 4) {
+            self.floor4Button.backgroundColor = _numberButtonColor;
         } else {
-            self.floor1Button.backgroundColor = [UIColor orangeColor];
-            self.numberButtonLit = false;
-        }
-        
-    } else if (buttonNumber == 2) {
-        if (!self.numberButtonLit) {
-            self.floor1Button.backgroundColor = [UIColor blueColor];
-            self.numberButtonLit = true;
-        } else {
-            self.floor1Button.backgroundColor = [UIColor orangeColor];
-            self.numberButtonLit = false;
-        }
-    } else if (buttonNumber == 3) {
-        if (!self.numberButtonLit) {
-            self.floor1Button.backgroundColor = [UIColor blueColor];
-            self.numberButtonLit = true;
-        } else {
-            self.floor1Button.backgroundColor = [UIColor orangeColor];
-            self.numberButtonLit = false;
-        }
-    } else if (buttonNumber == 4) {
-        if (!self.numberButtonLit) {
-            self.floor1Button.backgroundColor = [UIColor blueColor];
-            self.numberButtonLit = true;
-        } else {
-            self.floor1Button.backgroundColor = [UIColor orangeColor];
-            self.numberButtonLit = false;
-        }
-    } else {
-        if (!self.numberButtonLit) {
-            self.floor1Button.backgroundColor = [UIColor blueColor];
-            self.numberButtonLit = true;
-        } else {
-            self.floor1Button.backgroundColor = [UIColor orangeColor];
-            self.numberButtonLit = false;
+            self.floor5Button.backgroundColor = _numberButtonColor;
         }
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
