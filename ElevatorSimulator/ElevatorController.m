@@ -10,8 +10,8 @@
 
 @implementation ElevatorController
 
--(id)advanceToFloor(int){
-    
-}
+//-(id)advanceToFloor:(int){
+//    
+//}
 
 @end

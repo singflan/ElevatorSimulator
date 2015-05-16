@@ -102,32 +102,24 @@
     _floors = @[@1,@2,@3,@4,@5];
     _arrowButtonLit = false;
     _numberButtonLit = false;
-    
-
-    
-    
 }
-
-
 
 -(IBAction)upButtonPressed:(UIButton *)sender {
     if (!_arrowButtonLit) {
-        _arrowButtonLit = true;
-        
-        
+        _arrowButtonLit = YES;
     }
 }
 
 -(IBAction)downButtonPressed:(UIButton *)sender {
     if (!_arrowButtonLit) {
-       _arrowButtonLit = true;
+       _arrowButtonLit = YES;
     
     
     }
 }
 
 -(IBAction)numberButtonPressed:(UIButton *)sender {
-    if (self.arrowButtonLit = true) {
+    if (!self.arrowButtonLit) {
         int buttonNumber;
         if ([sender.currentAttributedTitle isEqual: @"1"]) {
             buttonNumber = 1;
@@ -144,7 +136,7 @@
         else {
             buttonNumber = 5;
         }
-    
+        [self changeNumberButtonColor:buttonNumber]; //Method to change the button color
         // if the outside light is on
         //[self advanceFloor]; //do something like this
         
@@ -156,24 +148,47 @@
 
 -(void)changeNumberButtonColor:(int)buttonNumber {
     if (buttonNumber == 1) {
-        if (self.numberButtonLit) {
+        if (!self.numberButtonLit) {
             self.floor1Button.backgroundColor = [UIColor blueColor];
+            self.numberButtonLit = true;
         } else {
             self.floor1Button.backgroundColor = [UIColor orangeColor];
+            self.numberButtonLit = false;
         }
         
-    }
-    else if (buttonNumber == 2) {
-        if (self.numberButtonLit) {
+    } else if (buttonNumber == 2) {
+        if (!self.numberButtonLit) {
             self.floor1Button.backgroundColor = [UIColor blueColor];
+            self.numberButtonLit = true;
         } else {
             self.floor1Button.backgroundColor = [UIColor orangeColor];
+            self.numberButtonLit = false;
+        }
+    } else if (buttonNumber == 3) {
+        if (!self.numberButtonLit) {
+            self.floor1Button.backgroundColor = [UIColor blueColor];
+            self.numberButtonLit = true;
+        } else {
+            self.floor1Button.backgroundColor = [UIColor orangeColor];
+            self.numberButtonLit = false;
+        }
+    } else if (buttonNumber == 4) {
+        if (!self.numberButtonLit) {
+            self.floor1Button.backgroundColor = [UIColor blueColor];
+            self.numberButtonLit = true;
+        } else {
+            self.floor1Button.backgroundColor = [UIColor orangeColor];
+            self.numberButtonLit = false;
+        }
+    } else {
+        if (!self.numberButtonLit) {
+            self.floor1Button.backgroundColor = [UIColor blueColor];
+            self.numberButtonLit = true;
+        } else {
+            self.floor1Button.backgroundColor = [UIColor orangeColor];
+            self.numberButtonLit = false;
         }
     }
-    else if (buttonNumber == 3) {
-        self.floor3Button.backgroundColor = [UIColor blueColor];
-    }
-
 }
 
 
