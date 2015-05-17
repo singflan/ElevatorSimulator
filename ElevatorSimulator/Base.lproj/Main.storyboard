@@ -23,7 +23,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSF-mK-d7c">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSF-mK-d7c">
                                 <rect key="frame" x="16" y="20" width="294" height="560"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OUTSIDE ELEVATOR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qru-aN-1Xm">
@@ -82,6 +82,15 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duc-1W-i6m">
+                                        <rect key="frame" x="124" y="62" width="46" height="30"/>
+                                        <state key="normal" title="Floor5Down" image="Down-50.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VYF-6j-oE4"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekm-6G-Zkk">
                                         <rect key="frame" x="70" y="91" width="46" height="30"/>
                                         <color key="tintColor" red="1" green="0.99267637559999999" blue="0.68635294359999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -119,15 +128,6 @@
                                             <action selector="upButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1gR-iH-vlw"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KDt-sE-hiH">
-                                        <rect key="frame" x="124" y="120" width="44" height="30"/>
-                                        <state key="normal" title="Floor3Down" image="Down-50.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0MV-yI-70y"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79V-U8-27c">
                                         <rect key="frame" x="124" y="149" width="44" height="30"/>
                                         <state key="normal" title="Floor2Down" image="Down-50.png">
@@ -146,13 +146,13 @@
                                             <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8n0-DH-Aa9"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="duc-1W-i6m">
-                                        <rect key="frame" x="124" y="62" width="46" height="30"/>
-                                        <state key="normal" title="Floor5Down" image="Down-50.png">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KDt-sE-hiH">
+                                        <rect key="frame" x="124" y="120" width="44" height="30"/>
+                                        <state key="normal" title="Floor3Down" image="Down-50.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VYF-6j-oE4"/>
+                                            <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0MV-yI-70y"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -167,7 +167,7 @@
                                     <constraint firstItem="oVF-KV-daB" firstAttribute="leading" secondItem="6DL-qE-az9" secondAttribute="trailing" constant="8" id="sY8-OD-hNL"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sf8-bw-GbI">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sf8-bw-GbI">
                                 <rect key="frame" x="310" y="20" width="274" height="560"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="INSIDE ELEVATOR" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAU-k5-jbH">
@@ -260,11 +260,14 @@
                             <constraint firstItem="sf8-bw-GbI" firstAttribute="centerY" secondItem="TSF-mK-d7c" secondAttribute="centerY" id="cmD-VE-1jV"/>
                             <constraint firstItem="d9l-ED-Gdv" firstAttribute="leading" secondItem="TSF-mK-d7c" secondAttribute="trailing" constant="15" id="cwS-Bu-PMq"/>
                             <constraint firstItem="sf8-bw-GbI" firstAttribute="height" secondItem="TSF-mK-d7c" secondAttribute="height" id="fIe-wB-fis"/>
+                            <constraint firstItem="sf8-bw-GbI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="i75-fF-1mz"/>
+                            <constraint firstItem="TSF-mK-d7c" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="la2-kB-NHR"/>
                             <constraint firstItem="TSF-mK-d7c" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="xnB-zU-Q1y"/>
                             <constraint firstItem="zAU-k5-jbH" firstAttribute="leading" secondItem="TSF-mK-d7c" secondAttribute="trailing" constant="8" id="y5P-QI-99g"/>
                             <constraint firstItem="sf8-bw-GbI" firstAttribute="leading" secondItem="TSF-mK-d7c" secondAttribute="trailing" id="yGZ-V2-XFy"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="1Aq-DT-dYX"/>
                     <connections>
                         <outlet property="floor1Button" destination="jBj-Qy-Crr" id="yG3-bY-kKW"/>
                         <outlet property="floor1UpButton" destination="Cvb-Qw-qJs" id="USq-LG-Cb5"/>
@@ -281,10 +284,12 @@
                         <outlet property="floor5DownButton" destination="duc-1W-i6m" id="TgZ-xg-kSb"/>
                         <outlet property="insideFloorIndicator" destination="uC4-au-TDh" id="gEB-tH-KRn"/>
                         <outlet property="outsideFloorIndicator" destination="oVF-KV-daB" id="FYn-bU-Rup"/>
+                        <outlet property="waitingLabel" destination="HjB-77-nQ8" id="Lrb-1L-VGa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1137" y="399"/>
         </scene>
     </scenes>
     <resources>

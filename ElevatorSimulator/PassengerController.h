@@ -10,6 +10,5 @@
 
 @interface PassengerController : NSObject
 
-@property (nonatomic) NSInteger desiredFloor;
 
 @end

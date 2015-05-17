@@ -9,6 +9,10 @@
 #import "PassengerController.h"
 
 @implementation PassengerController
-
+//
+//-(void)newPassengerRequest(NSInteger)arrowFloor:(NSInteger)destinationFloor {
+//    // eat a cookie
+//    
+//}
 
 @end

@@ -25,13 +25,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *floor2UpButton;
 @property (weak, nonatomic) IBOutlet UIButton *floor2DownButton;
 @property (weak, nonatomic) IBOutlet UIButton *floor1UpButton;
+@property (weak, nonatomic) IBOutlet UILabel *waitingLabel;
 @property UIImage *upArrow;
 @property UIImage *downArrow;
 @property NSInteger currentFloorNumber; // Which floor is the elevator on now
 @property NSInteger destinationFloor; // Which floor are we headed to
 @property NSInteger direction; // Is elevator on the way up or down
-@property BOOL *arrowButtonLit;
-@property BOOL *numberButtonLit;
+@property BOOL arrowButtonLit;
+@property BOOL numberButtonLit;
 @property NSArray *floors;
 @property UIColor *numberButtonColor;
 @property NSTimer *betweenFloorsTimer;
@@ -105,26 +106,44 @@
     _arrowButtonLit = NO;
     _numberButtonLit = NO;
     
+//    _betweenFloorsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0
+//                                                           target: self
+//                                                         selector:@selector(timerRun)
+//                                                         userInfo: nil
+//                                                          repeats: NO];
+    
+    // attach the timer to this thread's run loop
+    
+    // pump the run loop until someone tells us to stop
+//    while(!someQuitCondition)
+//    {
+//        // create a autorelease pool
+//        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//        
+//        // allow the run loop to run for, arbitrarily, 2 seconds
+//        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
+//        
+//        // drain the pool
+//        [pool drain];
+//    }
+    
+    // clean up after the timer
+  //  [_betweenFloorsTimer invalidate];
+    
 }
 
 -(IBAction)upButtonPressed:(UIButton *)sender {
+    
     if (!_arrowButtonLit) {
         _arrowButtonLit = YES;
-        if ([sender.currentAttributedTitle isEqual:@"Floor5Down"]) {
-            self.floor5DownButton.backgroundColor = [UIColor redColor];
-        } else if ([sender.currentAttributedTitle isEqual:@"Floor4Down"]) {
-            self.floor4DownButton.backgroundColor = [UIColor redColor];
-        } else if ([sender.currentAttributedTitle isEqual:@"Floor3Down"]) {
-            self.floor3DownButton.backgroundColor = [UIColor redColor];
-        } else if ([sender.currentAttributedTitle isEqual:@"Floor2Down"]) {
-            self.floor2DownButton.backgroundColor = [UIColor redColor];
-        } else if ([sender.currentAttributedTitle isEqual:@"Floor4Up"]) {
+        
+        if ([sender.currentTitle isEqual:@"Floor4Up"]) {
             self.floor4UpButton.backgroundColor = [UIColor redColor];
-        } else if ([sender.currentAttributedTitle isEqual:@"Floor3Up"]) {
+        } else if ([sender.currentTitle isEqual:@"Floor3Up"]) {
             self.floor3UpButton.backgroundColor = [UIColor redColor];
-        } else if ([sender.currentAttributedTitle isEqual:@"Floor2Up"]) {
+        } else if ([sender.currentTitle isEqual:@"Floor2Up"]) {
             self.floor2UpButton.backgroundColor = [UIColor redColor];
-        } else if ([sender.currentAttributedTitle isEqual:@"Floor1Up"]) {
+        } else if ([sender.currentTitle isEqual:@"Floor1Up"]) {
             self.floor1UpButton.backgroundColor = [UIColor redColor];
         }
     }
@@ -133,22 +152,32 @@
 -(IBAction)downButtonPressed:(UIButton *)sender {
     if (!_arrowButtonLit) {
        _arrowButtonLit = YES;
+        if ([sender.currentTitle isEqual:@"Floor5Down"]) {
+            self.floor5DownButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentTitle isEqual:@"Floor4Down"]) {
+            self.floor4DownButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentTitle isEqual:@"Floor3Down"]) {
+            self.floor3DownButton.backgroundColor = [UIColor redColor];
+        } else if ([sender.currentTitle isEqual:@"Floor2Down"]) {
+            self.floor2DownButton.backgroundColor = [UIColor redColor];
+        }
+      
     }
 }
 
 -(IBAction)numberButtonPressed:(UIButton *)sender {
-    if (!self.arrowButtonLit) {
+    if (self.arrowButtonLit) {
         int buttonNumber;
-        if ([sender.currentAttributedTitle isEqual: @"1"]) {
+        if ([sender.currentTitle isEqual: @"1"]) {
             buttonNumber = 1;
         }
-        else if ([sender.currentAttributedTitle isEqual: @"2"]){
+        else if ([sender.currentTitle isEqual: @"2"]){
             buttonNumber = 2;
         }
-        else if ([sender.currentAttributedTitle isEqual: @"3"]){
+        else if ([sender.currentTitle isEqual: @"3"]){
             buttonNumber = 3;
         }
-        else if ([sender.currentAttributedTitle isEqual: @"4"]) {
+        else if ([sender.currentTitle isEqual: @"4"]) {
             buttonNumber = 4;
         }
         else {
@@ -165,19 +194,33 @@
 //            
 //        }
         
-//        _betweenFloorsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0
-//                                                               target: self
-//                                                             selector:@selector(onTick:)
-//                                                             userInfo: nil
-//                                                              repeats:NO];
+//        [[NSRunLoop currentRunLoop] addTimer:_betweenFloorsTimer forMode:NSRunLoopCommonModes];
+//        [performSelector:
+//              withObject:
+//              afterDelay:2.0;
+        
+        double delayInSeconds = 1.5;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+            _waitingLabel.text = @"We are progressing";
+            
+        });
+
+        
         self.currentFloorNumber = buttonNumber;
         NSString *floorNumber =[NSString stringWithFormat:@"%i", buttonNumber];
         self.outsideFloorIndicator.text = floorNumber;
         self.insideFloorIndicator.text = floorNumber;
             
         self.arrowButtonLit = NO;
+        [self changeNumberButtonColor:buttonNumber];
     }
     
+}
+
+-(void) timerRun:(NSTimer *)timer;{
+
 }
 
 -(void)changeNumberButtonColor:(int)buttonNumber {
@@ -185,18 +228,21 @@
     if (!self.numberButtonLit) {
         self.numberButtonLit = YES;
         self.numberButtonColor = [UIColor blueColor];
+    } else {
+        //self.numberButtonColor = [UIColor cyanColor];
+        self.numberButtonLit = NO;
+    }
     
-        if (buttonNumber == 1) {
-            self.floor1Button.backgroundColor = _numberButtonColor;
-        } else if (buttonNumber == 2) {
-            self.floor2Button.backgroundColor = _numberButtonColor;
-        } else if (buttonNumber == 3) {
-            self.floor3Button.backgroundColor = _numberButtonColor;
-        } else if (buttonNumber == 4) {
-            self.floor4Button.backgroundColor = _numberButtonColor;
-        } else {
-            self.floor5Button.backgroundColor = _numberButtonColor;
-        }
+    if (buttonNumber == 1) {
+        _floor1Button.backgroundColor = _numberButtonColor;
+    } else if (buttonNumber == 2) {
+        _floor2Button.backgroundColor = _numberButtonColor;
+    } else if (buttonNumber == 3) {
+        _floor3Button.backgroundColor = _numberButtonColor;
+    } else if (buttonNumber == 4) {
+        _floor4Button.backgroundColor = _numberButtonColor;
+    } else {
+        _floor5Button.backgroundColor = _numberButtonColor;
     }
 }
 
