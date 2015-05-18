@@ -31,7 +31,15 @@
 
 // A new request comes in to the elevator
 -(void)newElevatorRequest:(NSInteger)newFloor {
+    NSNumber *number = [NSNumber numberWithInteger:newFloor];
+    // If the new floor is not already in the array, add it.
+    for (NSNumber *floor in self.elevObject.floorsPressed) {
+        if (number != floor) {
+            [self.elevObject addFloorToArray:newFloor];
+        }
+    }
     
+    // If elevator is not currently moving, set the direction, the destination floor and move a floor
     if (self.elevObject.notMoving) {
         if (newFloor > self.elevObject.currentFloor) {
             [self.elevObject startMovingUp];
@@ -40,7 +48,11 @@
         }
         // Make the new floor the destination floor
         self.elevObject.destinationFloor = newFloor;
-
+        
+        //[self moveToNextFloor];
+        //[self changeCurrentFloor];
+        
+    // If elevator is already moving, adjust the destination floor if necessary
     } else if (self.elevObject.movingUp) {
         if (newFloor < self.elevObject.destinationFloor) {
             self.elevObject.destinationFloor = newFloor;
@@ -51,45 +63,52 @@
         }
     }
     
-    // If the new floor is not already in the array, add it.
-    for (NSNumber *floor in self.elevObject.floorsPressed) {
-        if (!newFloor == floor) {
-            [self.elevObject addFloorToArray:newFloor];
-        }
-    }
+   
 }
 
--(void)moveToNextFloor {
-    //
-    double delayInSeconds = 2.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self changeCurrentFloor];
-        
-        if (self.elevObject.currentFloor == self.elevObject.destinationFloor) {
-            
-            // Open door comment in View Controller
-            [self removeDestinationFloor];
-        
-        }
-        [self setDestinationFloor];
-        
-        });
-
-}
+//-(void)moveToNextFloor {
+//    //x
+//    double delayInSeconds = 2.0;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [self dismissViewControllerAnimated:YES completion:^{
+//        [self changeCurrentFloor];
+//        }
+//        
+//        if (self.elevObject.currentFloor == self.elevObject.destinationFloor) {
+//            
+//            // Open door comment in View Controller
+//            [self removeDestinationFloor];
+//        
+//        } else {
+//            
+//        }
+//        [self setDestinationFloor];
+//        
+//        });
+//
+//}
 
 -(void)changeCurrentFloor { 
-    sleep (2);
+    sleep (1);
     if (self.elevObject.movingUp) {
-        self.elevObject.currentFloor++;
+        if (self.elevObject.currentFloor < 5) {
+            self.elevObject.currentFloor++;
+        } else {
+            [self.elevObject movingDown];
+            self.elevObject.currentFloor--;
+        }
         
     } else if (self.elevObject.movingDown) {
-        self.elevObject.currentFloor--;
+        if (self.elevObject.currentFloor > 1) {
+            self.elevObject.currentFloor--;
+        } else {
+            [self.elevObject movingUp];
+            self.elevObject.currentFloor++;
+        }
+        
     }
     
-}
-
--(void)addAdditionalDestination {
     
 }
 
@@ -131,8 +150,24 @@
     }
 }
 
--(NSInteger)checkDestinationFloor {
+-(NSString *)getElevatorState {
+    NSString *string = @"";
+    if (self.elevObject.movingUp) {
+        string = @"Moving Up";
+    } else if (self.elevObject.movingDown) {
+        string = @"Moving Down";
+    } else if (self.elevObject.notMoving) {
+        string = @"Not Moving";
+    }
     
+    return string;
+}
+         
+-(NSInteger)getCurrentFloor {
+    return self.elevObject.currentFloor;
+}
+
+-(NSInteger)checkDestinationFloor {
     return self.elevObject.destinationFloor;
 }
 

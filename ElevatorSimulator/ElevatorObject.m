@@ -11,6 +11,7 @@
 @implementation ElevatorObject
 
 -(id)initWithValues:(NSInteger)floorNumber {
+    self = [super init];
     if (floorNumber < 6 && 0 < floorNumber) {
         self.currentFloor = floorNumber;
     }else{

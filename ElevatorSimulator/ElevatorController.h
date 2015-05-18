@@ -16,11 +16,13 @@
 +(ElevatorController *)sharedInstance;
 -(ElevatorObject *)createElevator:(NSInteger)startingFloor;
 -(void)changeCurrentFloor;
--(void)addAdditionalDestination;
 -(void)newElevatorRequest:(NSInteger)newFloor;
--(void)moveToNextFloor;
+//-(void)moveToNextFloor;
+-(NSInteger)getCurrentFloor;
 -(NSInteger)checkDestinationFloor;
+-(void)setDestinationFloor;
 -(void)removeDestinationFloor;
+-(NSString *)getElevatorState;
 
 
 @end

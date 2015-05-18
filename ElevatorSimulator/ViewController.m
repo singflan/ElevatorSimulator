@@ -26,7 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *floor2UpButton;
 @property (weak, nonatomic) IBOutlet UIButton *floor2DownButton;
 @property (weak, nonatomic) IBOutlet UIButton *floor1UpButton;
-@property (weak, nonatomic) IBOutlet UILabel *waitingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *doorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentStateLabel;
 @property UIImage *upArrow;
 @property UIImage *downArrow;
 @property NSInteger currentFloorNumber; // Which floor is the elevator on now
@@ -36,9 +37,7 @@
 @property BOOL arrowButtonLit;
 @property BOOL numberButtonLit;
 @property BOOL upArrowPressed;
-
 @property UIColor *numberButtonColor;
-@property NSTimer *betweenFloorsTimer;
 
 @end
 
@@ -105,8 +104,12 @@
     _floor2UpButton.backgroundColor = [UIColor orangeColor];
     _floor1UpButton.backgroundColor = [UIColor orangeColor];
     
+    self.elevController = [ElevatorController new];
     [ElevatorController sharedInstance].elevObject = [[ElevatorController sharedInstance]createElevator:1];
-    
+    _currentFloorNumber = [[ElevatorController sharedInstance] getCurrentFloor];
+    [self displayCurrentFloor:_currentFloorNumber];
+  //  [ElevatorController sharedInstance].elevObject = [[ElevatorController sharedInstance]createElevator:1];
+
     _arrowButtonLit = NO;
     _numberButtonLit = NO;
     
@@ -119,7 +122,6 @@
     if (!_arrowButtonLit) {
         _arrowButtonLit = YES;
         _upArrowPressed = YES;
-        
         
         if ([sender.currentTitle isEqual:@"Floor4Up"]) {
             self.floor4UpButton.backgroundColor = [UIColor redColor];
@@ -135,27 +137,87 @@
             _passengerFloorNumber = 1;
         }
     }
-    
     [[ElevatorController sharedInstance] newElevatorRequest:_passengerFloorNumber];
+    _destinationFloor = [[ElevatorController sharedInstance] checkDestinationFloor];
+    
+    [[ElevatorController sharedInstance] getElevatorState];
+    [self displayCurrentElevatorState];
+    
+    [self elevatorCycle];
+    
+    switch (_passengerFloorNumber) {
+        case 1:
+            self.floor1UpButton.backgroundColor = [UIColor orangeColor];
+            break;
+        case 2:
+            self.floor2UpButton.backgroundColor = [UIColor orangeColor];
+            break;
+        case 3:
+            self.floor3UpButton.backgroundColor = [UIColor orangeColor];
+            break;
+        case 4:
+            self.floor4UpButton.backgroundColor = [UIColor orangeColor];
+            break;
+        default:
+            break;
+    }
+    
+    
+//    if ([ElevatorController sharedInstance].elevObject.notMoving) {
+//        
+//        [[ElevatorController sharedInstance] moveToNextFloor];
+//        _currentFloorNumber = [ElevatorController sharedInstance].elevObject.currentFloor;
+//        [self displayCurrentFloor:_currentFloorNumber];
+//        [self elevatorCycle];
+//    
+//    }
+    
+    
+    
+    
+//    [[ElevatorController sharedInstance] get:self.currentParty.pdfFile Callback:^(NSData *pdfData) {
+//        
+//    }
+//    
+    
+    
+}
+     
+-(void)elevatorCycle {
+    _doorLabel.text = @"Moving";
+
+    [[ElevatorController sharedInstance] changeCurrentFloor];
+    _currentFloorNumber = [[ElevatorController sharedInstance] getCurrentFloor];
+    [self displayCurrentFloor:_currentFloorNumber];
+    
+    [[ElevatorController sharedInstance] getElevatorState];
+    [self displayCurrentElevatorState];
+   
+    
+    
+    if (_currentFloorNumber == _destinationFloor) {
+        _doorLabel.text = @"Open Doors";
+        [[ElevatorController sharedInstance] removeDestinationFloor];
+        [[ElevatorController sharedInstance] setDestinationFloor];
+        [[ElevatorController sharedInstance] getElevatorState];
+        [self displayCurrentElevatorState];
+        sleep(1);
+    }
     
     if ([ElevatorController sharedInstance].elevObject.notMoving) {
-        
-        [[ElevatorController sharedInstance] moveToNextFloor];
-        _currentFloorNumber = [ElevatorController sharedInstance].elevObject.currentFloor;
-        [self displayCurrentFloor:_currentFloorNumber];
-    }
-    
-    
-    
-    if (_passengerFloorNumber > _currentFloorNumber) {
-        
-    } else if (_passengerFloorNumber < _currentFloorNumber) {
-        
+        _doorLabel.text = @"Waiting for passenger to choose floor";
     } else {
-        
+        //[[ElevatorController sharedInstance] changeCurrentFloor];
+        [self elevatorCycle];
     }
     
     
+    
+//    if ([ElevatorController sharedInstance].elevObject.movingUp) {
+//        
+//    } else if ([ElevatorController sharedInstance].elevObject.movingDown) {
+//        
+//    }
 }
 
 -(IBAction)downButtonPressed:(UIButton *)sender {
@@ -179,27 +241,52 @@
     }
     
     [[ElevatorController sharedInstance] newElevatorRequest:_passengerFloorNumber];
+    _destinationFloor = [[ElevatorController sharedInstance] checkDestinationFloor];
+
     
-    if ([ElevatorController sharedInstance].elevObject.notMoving) {
+    [[ElevatorController sharedInstance] getElevatorState];
+    [self displayCurrentElevatorState];
+    
+    [self elevatorCycle];
+    
+    switch (_passengerFloorNumber) {
         
-        //[[ElevatorController sharedInstance] moveToNextFloor];
-        [[ElevatorController sharedInstance] changeCurrentFloor];
-        _currentFloorNumber = [ElevatorController sharedInstance].elevObject.currentFloor;
-        
-        [self displayCurrentFloor:_currentFloorNumber];
+        case 2:
+            self.floor2DownButton.backgroundColor = [UIColor orangeColor];
+            break;
+        case 3:
+            self.floor3DownButton.backgroundColor = [UIColor orangeColor];
+            break;
+        case 4:
+            self.floor4DownButton.backgroundColor = [UIColor orangeColor];
+            break;
+        case 5:
+            self.floor5DownButton.backgroundColor = [UIColor orangeColor];
+            break;
+        default:
+            break;
     }
     
-    
-    if (_passengerFloorNumber > _currentFloorNumber) {
-//        for (<#initialization#>; <#condition#>; _currentFloorNumber) {
-//            <#statements#>
-//        }
-    } else if (_passengerFloorNumber < _currentFloorNumber) {
-        
-    } else {
-        
-    }
-    
+//    if ([ElevatorController sharedInstance].elevObject.notMoving) {
+//        
+//        //[[ElevatorController sharedInstance] moveToNextFloor];
+//        [[ElevatorController sharedInstance] changeCurrentFloor];
+//        _currentFloorNumber = [ElevatorController sharedInstance].elevObject.currentFloor;
+//        
+//        [self displayCurrentFloor:_currentFloorNumber];
+//    }
+//    
+//    
+//    if (_passengerFloorNumber > _currentFloorNumber) {
+////        for (<#initialization#>; <#condition#>; _currentFloorNumber) {
+////            <#statements#>
+////        }
+//    } else if (_passengerFloorNumber < _currentFloorNumber) {
+//        
+//    } else {
+//        
+//    }
+//    
 }
 
 -(IBAction)numberButtonPressed:(UIButton *)sender {
@@ -220,15 +307,19 @@
         else {
             buttonNumber = 5;
         }
-        _destinationFloor = buttonNumber;
+       // _destinationFloor = buttonNumber;
        
         [self changeNumberButtonColor:buttonNumber]; //Method to change the button color
 
         [[ElevatorController sharedInstance] newElevatorRequest:buttonNumber];
+        _destinationFloor = [[ElevatorController sharedInstance] checkDestinationFloor];
+
         
+        [self displayCurrentElevatorState];
+        [self elevatorCycle];
         
         self.currentFloorNumber = buttonNumber;
-        NSString *floorNumber =[NSString stringWithFormat:@"%i", buttonNumber];
+       // NSString *floorNumber =[NSString stringWithFormat:@"%i", buttonNumber];
         
         self.arrowButtonLit = NO;
         [self changeNumberButtonColor:buttonNumber];
@@ -237,9 +328,14 @@
 }
 
 -(void)displayCurrentFloor:(NSInteger)currentFloor {
-    NSString *floorNumber =[NSString stringWithFormat:@"%i", currentFloor];
+    NSString *floorNumber =[NSString stringWithFormat:@"%ld", (long)currentFloor];
     self.outsideFloorIndicator.text = floorNumber;
     self.insideFloorIndicator.text = floorNumber;
+}
+
+-(void)displayCurrentElevatorState {
+    NSString *state = [[ElevatorController sharedInstance] getElevatorState];
+    self.currentStateLabel.text = state;
 }
 
 
@@ -249,7 +345,7 @@
         self.numberButtonLit = YES;
         self.numberButtonColor = [UIColor blueColor];
     } else {
-        //self.numberButtonColor = [UIColor cyanColor];
+        self.numberButtonColor = [UIColor cyanColor];
         self.numberButtonLit = NO;
     }
     

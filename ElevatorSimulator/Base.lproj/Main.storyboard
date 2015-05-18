@@ -155,6 +155,12 @@
                                             <action selector="downButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0MV-yI-70y"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not Moving" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfj-d7-ePM">
+                                        <rect key="frame" x="8" y="211" width="89" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.70193200479999995" green="1" blue="0.51501551140000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -269,6 +275,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="1Aq-DT-dYX"/>
                     <connections>
+                        <outlet property="currentStateLabel" destination="Zfj-d7-ePM" id="0Oh-qQ-pFa"/>
+                        <outlet property="doorLabel" destination="HjB-77-nQ8" id="v3X-Mi-wDZ"/>
                         <outlet property="floor1Button" destination="jBj-Qy-Crr" id="yG3-bY-kKW"/>
                         <outlet property="floor1UpButton" destination="Cvb-Qw-qJs" id="USq-LG-Cb5"/>
                         <outlet property="floor2Button" destination="gXf-1V-V8I" id="ZJl-oy-xeL"/>
@@ -284,7 +292,6 @@
                         <outlet property="floor5DownButton" destination="duc-1W-i6m" id="TgZ-xg-kSb"/>
                         <outlet property="insideFloorIndicator" destination="uC4-au-TDh" id="gEB-tH-KRn"/>
                         <outlet property="outsideFloorIndicator" destination="oVF-KV-daB" id="FYn-bU-Rup"/>
-                        <outlet property="waitingLabel" destination="HjB-77-nQ8" id="Lrb-1L-VGa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
