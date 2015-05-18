@@ -19,7 +19,7 @@
 		6BA622281B056133008138AE /* Down Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BA622271B056133008138AE /* Down Filled-50.png */; };
 		6BA6222A1B056139008138AE /* Down-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BA622291B056139008138AE /* Down-50.png */; };
 		6BA6222D1B06A3E5008138AE /* ElevatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA6222C1B06A3E5008138AE /* ElevatorController.m */; };
-		6BA622301B06A3FB008138AE /* PassengerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA6222F1B06A3FB008138AE /* PassengerController.m */; };
+		6BA622331B0969A9008138AE /* ElevatorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA622321B0969A9008138AE /* ElevatorObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +52,8 @@
 		6BA622291B056139008138AE /* Down-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Down-50.png"; path = "../../../Downloads/Down-50.png"; sourceTree = "<group>"; };
 		6BA6222B1B06A3E5008138AE /* ElevatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElevatorController.h; sourceTree = "<group>"; };
 		6BA6222C1B06A3E5008138AE /* ElevatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElevatorController.m; sourceTree = "<group>"; };
-		6BA6222E1B06A3FB008138AE /* PassengerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassengerController.h; sourceTree = "<group>"; };
-		6BA6222F1B06A3FB008138AE /* PassengerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassengerController.m; sourceTree = "<group>"; };
+		6BA622311B0969A9008138AE /* ElevatorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElevatorObject.h; sourceTree = "<group>"; };
+		6BA622321B0969A9008138AE /* ElevatorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElevatorObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +101,8 @@
 				6BA622051B02ECDB008138AE /* ViewController.m */,
 				6BA6222B1B06A3E5008138AE /* ElevatorController.h */,
 				6BA6222C1B06A3E5008138AE /* ElevatorController.m */,
-				6BA6222E1B06A3FB008138AE /* PassengerController.h */,
-				6BA6222F1B06A3FB008138AE /* PassengerController.m */,
+				6BA622311B0969A9008138AE /* ElevatorObject.h */,
+				6BA622321B0969A9008138AE /* ElevatorObject.m */,
 				6BA622071B02ECDC008138AE /* Main.storyboard */,
 				6BA6220A1B02ECDC008138AE /* Images.xcassets */,
 				6BA6220C1B02ECDC008138AE /* LaunchScreen.xib */,
@@ -246,9 +246,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BA622061B02ECDB008138AE /* ViewController.m in Sources */,
-				6BA622301B06A3FB008138AE /* PassengerController.m in Sources */,
 				6BA6222D1B06A3E5008138AE /* ElevatorController.m in Sources */,
 				6BA622031B02ECDB008138AE /* AppDelegate.m in Sources */,
+				6BA622331B0969A9008138AE /* ElevatorObject.m in Sources */,
 				6BA622001B02ECDB008138AE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -446,6 +446,7 @@
 				6BA6221F1B02ECDC008138AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6BA622201B02ECDC008138AE /* Build configuration list for PBXNativeTarget "ElevatorSimulatorTests" */ = {
 			isa = XCConfigurationList;
@@ -454,6 +455,7 @@
 				6BA622221B02ECDC008138AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -7,7 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ElevatorObject.h"
 
 @interface ElevatorController : NSObject
+
+@property (strong, nonatomic) ElevatorObject *elevObject;
+
++(ElevatorController *)sharedInstance;
+-(ElevatorObject *)createElevator:(NSInteger)startingFloor;
+-(void)changeCurrentFloor;
+-(void)addAdditionalDestination;
+-(void)newElevatorRequest:(NSInteger)newFloor;
+-(void)moveToNextFloor;
+-(NSInteger)checkDestinationFloor;
+-(void)removeDestinationFloor;
+
 
 @end

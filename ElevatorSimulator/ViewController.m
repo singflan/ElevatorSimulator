@@ -10,6 +10,7 @@
 #import "ElevatorController.h"
 
 @interface ViewController ()
+@property (strong, nonatomic) ElevatorController *elevController;
 @property (weak, nonatomic) IBOutlet UILabel *outsideFloorIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *insideFloorIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *floor1Button;
@@ -29,11 +30,13 @@
 @property UIImage *upArrow;
 @property UIImage *downArrow;
 @property NSInteger currentFloorNumber; // Which floor is the elevator on now
+@property NSInteger passengerFloorNumber; // From which floor is the elevator request made?
 @property NSInteger destinationFloor; // Which floor are we headed to
 @property NSInteger direction; // Is elevator on the way up or down
 @property BOOL arrowButtonLit;
 @property BOOL numberButtonLit;
-@property NSArray *floors;
+@property BOOL upArrowPressed;
+
 @property UIColor *numberButtonColor;
 @property NSTimer *betweenFloorsTimer;
 
@@ -101,34 +104,13 @@
     _floor3UpButton.backgroundColor = [UIColor orangeColor];
     _floor2UpButton.backgroundColor = [UIColor orangeColor];
     _floor1UpButton.backgroundColor = [UIColor orangeColor];
-
-    _floors = @[@1,@2,@3,@4,@5];
+    
+    [ElevatorController sharedInstance].elevObject = [[ElevatorController sharedInstance]createElevator:1];
+    
     _arrowButtonLit = NO;
     _numberButtonLit = NO;
     
-//    _betweenFloorsTimer = [NSTimer scheduledTimerWithTimeInterval: 2.0
-//                                                           target: self
-//                                                         selector:@selector(timerRun)
-//                                                         userInfo: nil
-//                                                          repeats: NO];
-    
-    // attach the timer to this thread's run loop
-    
-    // pump the run loop until someone tells us to stop
-//    while(!someQuitCondition)
-//    {
-//        // create a autorelease pool
-//        NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-//        
-//        // allow the run loop to run for, arbitrarily, 2 seconds
-//        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
-//        
-//        // drain the pool
-//        [pool drain];
-//    }
-    
-    // clean up after the timer
-  //  [_betweenFloorsTimer invalidate];
+
     
 }
 
@@ -136,33 +118,88 @@
     
     if (!_arrowButtonLit) {
         _arrowButtonLit = YES;
+        _upArrowPressed = YES;
+        
         
         if ([sender.currentTitle isEqual:@"Floor4Up"]) {
             self.floor4UpButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 4;
         } else if ([sender.currentTitle isEqual:@"Floor3Up"]) {
             self.floor3UpButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 3;
         } else if ([sender.currentTitle isEqual:@"Floor2Up"]) {
             self.floor2UpButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 2;
         } else if ([sender.currentTitle isEqual:@"Floor1Up"]) {
             self.floor1UpButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 1;
         }
     }
+    
+    [[ElevatorController sharedInstance] newElevatorRequest:_passengerFloorNumber];
+    
+    if ([ElevatorController sharedInstance].elevObject.notMoving) {
+        
+        [[ElevatorController sharedInstance] moveToNextFloor];
+        _currentFloorNumber = [ElevatorController sharedInstance].elevObject.currentFloor;
+        [self displayCurrentFloor:_currentFloorNumber];
+    }
+    
+    
+    
+    if (_passengerFloorNumber > _currentFloorNumber) {
+        
+    } else if (_passengerFloorNumber < _currentFloorNumber) {
+        
+    } else {
+        
+    }
+    
+    
 }
 
 -(IBAction)downButtonPressed:(UIButton *)sender {
     if (!_arrowButtonLit) {
-       _arrowButtonLit = YES;
+        _arrowButtonLit = YES;
+        _upArrowPressed = NO;
         if ([sender.currentTitle isEqual:@"Floor5Down"]) {
             self.floor5DownButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 5;
         } else if ([sender.currentTitle isEqual:@"Floor4Down"]) {
             self.floor4DownButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 4;
         } else if ([sender.currentTitle isEqual:@"Floor3Down"]) {
             self.floor3DownButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 3;
         } else if ([sender.currentTitle isEqual:@"Floor2Down"]) {
             self.floor2DownButton.backgroundColor = [UIColor redColor];
+            _passengerFloorNumber = 2;
         }
       
     }
+    
+    [[ElevatorController sharedInstance] newElevatorRequest:_passengerFloorNumber];
+    
+    if ([ElevatorController sharedInstance].elevObject.notMoving) {
+        
+        //[[ElevatorController sharedInstance] moveToNextFloor];
+        [[ElevatorController sharedInstance] changeCurrentFloor];
+        _currentFloorNumber = [ElevatorController sharedInstance].elevObject.currentFloor;
+        
+        [self displayCurrentFloor:_currentFloorNumber];
+    }
+    
+    
+    if (_passengerFloorNumber > _currentFloorNumber) {
+//        for (<#initialization#>; <#condition#>; _currentFloorNumber) {
+//            <#statements#>
+//        }
+    } else if (_passengerFloorNumber < _currentFloorNumber) {
+        
+    } else {
+        
+    }
+    
 }
 
 -(IBAction)numberButtonPressed:(UIButton *)sender {
@@ -183,45 +220,28 @@
         else {
             buttonNumber = 5;
         }
+        _destinationFloor = buttonNumber;
        
         [self changeNumberButtonColor:buttonNumber]; //Method to change the button color
-       
-     //  [self.betweenFloorsTimer ]
-//        if (<#condition#>) {
-//            <#statements#>
-//        }
-//        for (i = buttonNumber) {
-//            
-//        }
-        
-//        [[NSRunLoop currentRunLoop] addTimer:_betweenFloorsTimer forMode:NSRunLoopCommonModes];
-//        [performSelector:
-//              withObject:
-//              afterDelay:2.0;
-        
-        double delayInSeconds = 1.5;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            
-            _waitingLabel.text = @"We are progressing";
-            
-        });
 
+        [[ElevatorController sharedInstance] newElevatorRequest:buttonNumber];
+        
         
         self.currentFloorNumber = buttonNumber;
         NSString *floorNumber =[NSString stringWithFormat:@"%i", buttonNumber];
-        self.outsideFloorIndicator.text = floorNumber;
-        self.insideFloorIndicator.text = floorNumber;
-            
+        
         self.arrowButtonLit = NO;
         [self changeNumberButtonColor:buttonNumber];
     }
     
 }
 
--(void) timerRun:(NSTimer *)timer;{
-
+-(void)displayCurrentFloor:(NSInteger)currentFloor {
+    NSString *floorNumber =[NSString stringWithFormat:@"%i", currentFloor];
+    self.outsideFloorIndicator.text = floorNumber;
+    self.insideFloorIndicator.text = floorNumber;
 }
+
 
 -(void)changeNumberButtonColor:(int)buttonNumber {
     
